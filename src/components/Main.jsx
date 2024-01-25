@@ -19,21 +19,57 @@ function Main(props) {
       <Typography variant="subtitle2" color="text.secondary" paragraph>
         {infoContents}
       </Typography>
-      <Divider /> {/* 실선 */}
       {/* 카드섹션 */}
       <Grid container spacing={2}>
         {infoCardsections.map((section) => (
-          <Grid item key={section.title} xs={12} sm={6} md={4} lg={3}>
-            <Card key={section.title}>
+          <Grid item key={section.title} mobile={3} sm={3} md={3} laptop={3}>
+            <Card
+              key={section.title}
+              sx={{
+                // border: "1px solid black",
+                height: {
+                  mobile: "150px",
+                  sm: "150px",
+                  md: "300px",
+                },
+                width: {
+                  mobile: "100px",
+                  sm: "150px",
+                  md: "200px",
+                  desktop: "250px",
+                },
+              }}
+            >
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height="300"
                   image={section.image}
                   alt={section.alt}
+                  objectFit="fill"
+                  sx={{
+                    // border: "1px solid black",
+                    height: {
+                      mobile: "100px",
+                      sm: "100px",
+                      md: "250px",
+                    },
+                    width: {
+                      mobile: "100px",
+                      sm: "150px",
+                      md: "200px",
+                      desktop: "250px",
+                    },
+                  }}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography
+                    sx={{
+                      fontSize: { mobile: "12px", sm: "18px" },
+                      fontWeight: "600",
+                    }}
+                    gutterBottom
+                    component="div"
+                  >
                     {section.title}
                   </Typography>
                 </CardContent>
