@@ -12,7 +12,15 @@ function Main(props) {
   const { title, infoContents, infoCardsections } = props;
 
   return (
-    <Grid item mobile={12} laptop={12}>
+    <Grid
+      item
+      // xs={12}
+      // laptop={12}
+      sx={{
+        margin: "auto", // 가로 중앙 정렬을 위해 추가
+        //border: "1px solid black",
+      }}
+    >
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
@@ -20,23 +28,45 @@ function Main(props) {
         {infoContents}
       </Typography>
       {/* 카드섹션 */}
-      <Grid container spacing={2}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          display: "flex",
+          position: "relative",
+          //border: "1px solid black",
+        }}
+      >
         {infoCardsections.map((section) => (
-          <Grid item key={section.title} mobile={3} sm={3} md={3} laptop={3}>
+          <Grid
+            item
+            key={section.title}
+            xs={3}
+            laptop={3}
+            sx={
+              {
+                //display: "flex",
+                //position: "relative",
+                //border: "1px solid black",
+              }
+            }
+          >
             <Card
               key={section.title}
               sx={{
                 // border: "1px solid black",
+
                 height: {
-                  mobile: "150px",
-                  sm: "150px",
-                  md: "300px",
+                  xs: "150px",
+                  mob: "150px",
+                  tab: "200px",
+                  laptop: "350px",
                 },
                 width: {
-                  mobile: "100px",
-                  sm: "150px",
-                  md: "200px",
-                  desktop: "250px",
+                  xs: "100px",
+                  mob: "100px",
+                  tab: "180px",
+                  laptop: "300px",
                 },
               }}
             >
@@ -49,22 +79,23 @@ function Main(props) {
                   sx={{
                     // border: "1px solid black",
                     height: {
-                      mobile: "100px",
-                      sm: "100px",
-                      md: "250px",
+                      xs: "100px",
+                      mob: "100px",
+                      tab: "150px",
+                      laptop: "300px",
                     },
                     width: {
-                      mobile: "100px",
-                      sm: "150px",
-                      md: "200px",
-                      desktop: "250px",
+                      xs: "100px",
+                      mob: "100px",
+                      tab: "180px",
+                      laptop: "300px",
                     },
                   }}
                 />
                 <CardContent>
                   <Typography
                     sx={{
-                      fontSize: { mobile: "12px", sm: "18px" },
+                      fontSize: { xs: "12px", tab: "18px" },
                       fontWeight: "600",
                     }}
                     gutterBottom

@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
+import { CardActions } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { useState } from "react";
@@ -14,87 +15,89 @@ function FeaturedPost(props) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Grid item mobile={6} md={6} laptop={6}>
-      <CardActionArea component="a" href={post.url}>
-        <Card
-          sx={{
-            display: "flex",
-            position: "relative",
-            backgroundImage: {
-              mobile: `linear-gradient(${
-                isHovered ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)"
-              }, ${
-                isHovered ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)"
-              }), url(${post.image})`,
-              md: "none",
-            },
-            backgroundSize: { mobile: "cover", md: "block" },
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: { mobile: "center", md: "none" },
-            height: { mobile: "150px", md: "auto" },
-            maxHeight: { mobile: "150px", md: "250px" },
-            cursor: "pointer",
-            transition: "background-color 0.3s", // 부드러운 hover 효과를 위한 트랜지션 추가
+    <Grid item xs={6} tab={6} laptop={6}>
+      <CardActions>
+        <CardActionArea component="a" href={post.url}>
+          <Card
+            sx={{
+              display: "flex",
+              position: "relative",
+              backgroundImage: {
+                xs: `linear-gradient(${
+                  isHovered ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)"
+                }, ${
+                  isHovered ? "rgba(0, 0, 0, 0.5)" : "rgba(255, 255, 255, 0.5)"
+                }), url(${post.image})`,
+                tab: "none",
+              },
+              backgroundSize: { xs: "cover", tab: "block" },
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: { xs: "center", tab: "none" },
+              height: { xs: "150px", tab: "auto" },
+              maxHeight: { xs: "150px", tab: "250px" },
+              cursor: "pointer",
+              transition: "background-color 0.3s", // 부드러운 hover 효과를 위한 트랜지션 추가
 
-            "&:hover": {
-              transform: "scale(1.1)",
-            },
-          }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <CardContent sx={{ flex: 1, paddingTop: "15px" }}>
-            <Typography
-              component="h2"
-              variant="h4"
-              sx={{
-                color: { mobile: "primary.main", md: "black" },
-                textShadow: {
-                  mobile: "2px 2px 2px white",
-                  md: "none",
-                },
-              }}
-            >
-              {post.title}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{
-                color: { mobile: "white", md: "secondary.main" },
-                textShadow: { mobile: "3px 2px 2px black", md: "none" },
-              }}
-            >
-              {post.subtitle}
-            </Typography>
-            {isHovered && (
+              "&:hover": {
+                transform: "scale(1.1)",
+              },
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <CardContent sx={{ flex: 1, paddingTop: "15px" }}>
+              <Typography
+                component="h2"
+                variant="h2"
+                sx={{
+                  color: { xs: "primary.main", tab: "primary.main" },
+                  textShadow: {
+                    xs: "2px 2px 2px grey",
+                    tab: "none",
+                  },
+                }}
+              >
+                {post.title}
+              </Typography>
               <Typography
                 variant="subtitle1"
                 sx={{
-                  fontSize: "12px",
-                  whiteSpace: "pre-line",
-                  display: { mobile: "none", md: "block" },
-                  color: "secondary.dark",
+                  color: { xs: "white", tab: "secondary.main" },
+                  textShadow: { xs: "3px 2px 2px black", tab: "none" },
                 }}
-                paragraph
               >
-                {post.description}
+                {post.subtitle}
               </Typography>
-            )}
-            <Typography variant="subtitle1" color="primary">
-              {post.description2}
-            </Typography>
-          </CardContent>
-          <CardMedia
-            component="img"
-            sx={{
-              width: "50%",
-              display: { mobile: "none", md: "block" },
-            }}
-            image={post.image}
-            alt={post.imageLabel}
-          />
-        </Card>
-      </CardActionArea>
+              {isHovered && (
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    fontSize: "12px",
+                    whiteSpace: "pre-line",
+                    display: { xs: "none", laptop: "block" },
+                    color: { xs: "secondary.dark", tab: "secondary.dark" },
+                  }}
+                  paragraph
+                >
+                  {post.description}
+                </Typography>
+              )}
+              <Typography variant="subtitle1" color="primary">
+                {post.description2}
+              </Typography>
+            </CardContent>
+            <CardMedia
+              component="img"
+              sx={{
+                width: "50%",
+                display: { xs: "none", tab: "block" },
+              }}
+              image={post.image}
+              alt={post.imageLabel}
+            />
+          </Card>
+        </CardActionArea>
+      </CardActions>
     </Grid>
   );
 }

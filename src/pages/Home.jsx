@@ -69,18 +69,19 @@ const infoCardsections = [
 export default function Home() {
   return (
     <main>
+      {/* 오늘의 날씨 */}
       <MainFeaturedPost />
       {/* post={mainFeaturedPost} */}
-      {/* 터미널카드 */}
-      <Grid container spacing={4}>
+      {/* 터미널 탭 */}
+      <Grid container spacing={2}>
         {featuredPosts.map((post) => (
           <FeaturedPost key={post.title} post={post} />
         ))}
       </Grid>
 
-      {/* 편의시설카드 */}
+      {/* 편의시설 탭 */}
       <Divider sx={{ mt: 6 }} />
-      <Grid container spacing={5} sx={{ mt: 1 }}>
+      <Grid container spacing={2} sx={{ mt: 5 }}>
         <Main
           title="편의시설"
           infoContents="인천공항 내 편의시설을 찾고 계신가요?"

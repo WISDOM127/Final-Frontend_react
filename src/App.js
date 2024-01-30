@@ -44,13 +44,15 @@ function App() {
     },
     breakpoints: {
       values: {
+        // xs: 0,
+        // sm: 700,
+        // md: 900,
+        // lg: 1200,
         xs: 0,
-        sm: 700, //모바일
-        md: 900,
-        lg: 1200,
-        mobile: 0,
+        mob: 480,
+        tab: 768,
         laptop: 1024,
-        desktop: 1200,
+        //desktop: 1200,
       },
     },
   });
@@ -67,6 +69,8 @@ function App() {
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/t1Info" element={<T1Info />} />
             <Route path="/t2Info" element={<T2Info />} />
+
+            <Route path={"*"} element={<NotFound />} />
           </Routes>
         </Container>
         <Footer
@@ -74,9 +78,6 @@ function App() {
           description="developer : 김지혜 | contact: wisdom_127@naver.com"
         />
       </ThemeProvider>
-      <Routes>
-        <Route path={"*"} component={NotFound} />
-      </Routes>
     </div>
   );
 }

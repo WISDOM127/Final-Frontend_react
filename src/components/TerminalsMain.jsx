@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as React from "react";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
@@ -11,23 +12,9 @@ import { useState } from "react";
 
 function TerminalsMain(props) {
   const { title, infoContents, infoCardsections } = props;
-  const [selectedSection, setSelectedSection] = useState(0);
-
-  const handleButtonClick = (index) => {
-    setSelectedSection(index);
-  };
 
   return (
-    <Grid item mobile={12} laptop={12}>
-      {/* <Typography variant="h6" gutterBottom>
-        {title}
-      </Typography>
-      <Typography variant="subtitle2" color="text.secondary" paragraph>
-        {infoContents}
-      </Typography> */}
-      {/* Grid container->Grid 속성입히기
-      가로정렬 justifyContent="center" 여백 spacing={2} */}
-
+    <Grid item xs={12} mob={12} laptop={12}>
       <Grid container justifyContent="center" spacing={2}>
         {infoCardsections.map((section) => (
           <Grid item key={section.title}>
@@ -35,27 +22,29 @@ function TerminalsMain(props) {
               key={section.title}
               sx={{
                 height: {
-                  mobile: "auto",
-                  sm: "auto",
+                  xs: "auto",
+                  mob: "auto",
+                  tab: "auto",
                 },
                 width: {
-                  mobile: "auto",
-                  desktop: "1100px",
+                  xs: "auto",
+                  mob: "auto",
+                  laptop: "1000px",
                 },
-                maxWidth: "lg",
+                maxWidth: "1200px",
               }}
             >
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image={section.image}
-                  alt={section.alt}
-                />
+              {/* <CardActionArea> */}
+              <CardMedia
+                component="img"
+                image={section.image}
+                alt={section.alt}
+              />
 
-                <CardContent>
-                  <Typography component="div">{section.title}</Typography>
-                </CardContent>
-              </CardActionArea>
+              <CardContent>
+                <Typography component="div">{section.title}</Typography>
+              </CardContent>
+              {/* </CardActionArea> */}
             </Card>
           </Grid>
         ))}
