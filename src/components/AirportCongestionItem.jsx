@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const NewsItemBlock = styled.div`
+const CongestionItemBlock = styled.div`
   display: flex;
 
   .thumbnail {
@@ -30,12 +30,13 @@ const NewsItemBlock = styled.div`
     margin-top: 3rem;
   }
 `;
-
-const NewsItem = ({ article }) => {
+//article 자리에 공항혼잡데이터 끌어오기
+const CongestionItem = ({ article }) => {
+  //받아올 변수들
   const { title, author, description, url, urlToImage, publishedAt } = article;
 
   return (
-    <NewsItemBlock>
+    <CongestionItemBlock>
       {urlToImage && (
         <div className="thumbnail">
           <a href="url" target="_blank" rel="noopener noreferrer">
@@ -49,11 +50,11 @@ const NewsItem = ({ article }) => {
             {title}
           </a>
         </h2>
-        <span>작성자 : {author} </span>
-        <span>작성일자 : {publishedAt} </span>
+        <span>출구명 : {author} </span>
+        <span>내국인 : {publishedAt} </span>
         <p>{description}</p>
       </div>
-    </NewsItemBlock>
+    </CongestionItemBlock>
   );
 };
-export default NewsItem;
+export default CongestionItem;

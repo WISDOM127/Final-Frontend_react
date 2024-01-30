@@ -27,9 +27,7 @@ const AirportCongestionList = ({ category }) => {
       setLoading(true); //로딩 상태 활성화
       try {
         const select = category === "all" ? "" : `&category=${category}`;
-        const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=kr${select}&apiKey=d21f67cd19c64f6f9e5f78363921b761`
-        );
+        const response = await axios.get(`https://`);
         setArticles(response.data.articles); //가져온 데이터 articles에 저장
       } catch (err) {
         console.log("error");
