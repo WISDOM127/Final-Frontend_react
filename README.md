@@ -1,4 +1,4 @@
-# react 와 공공데이터 API 를 이용한 프론트엔드 개발 포트폴리오 입니다.
+# react 프론트엔드 개발 포트폴리오 입니다.
 <ol>
 <strong><li>버전 node.js v20.10.0 / npm v10.2.5</li> </strong>
 <strong><li>MUI 템플릿 https://mui.com/</li></strong>
