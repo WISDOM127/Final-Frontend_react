@@ -1,4 +1,4 @@
-# Final Project - react 프론트엔드
+# Final / React 프론트엔드 개발 프로젝트
 <ol>
 <strong><li>버전 node.js v20.10.0 / npm v10.2.5</li> </strong>
 <strong><li>MUI 템플릿 https://mui.com/</li></strong>
