@@ -6,11 +6,11 @@ import Grid from "@mui/material/Grid";
 import XIcon from "@mui/icons-material/X";
 
 //import Header from "../components/Header";
-import MainFeaturedPost from "./MainFeaturedPost";
 import FeaturedPost from "./FeaturedPost";
 import Main from "../components/Main";
 //import Footer from "../components/Footer";
 import Divider from "@mui/material/Divider";
+import MainWeatherPost from "./MainWeatherPost";
 
 const featuredPosts = [
   {
@@ -70,7 +70,7 @@ export default function Home() {
   return (
     <main>
       {/* 오늘의 날씨 */}
-      <MainFeaturedPost />
+      <MainWeatherPost />
       {/* post={mainFeaturedPost} */}
       {/* 터미널 탭 */}
       <Grid container spacing={2}>

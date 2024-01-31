@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
+import axios from "axios";
 // import imageUrl from "../../assets/rain.jpg";
 
 function encodeServiceKey(serviceKey) {
@@ -13,81 +14,85 @@ function encodeServiceKey(serviceKey) {
 }
 
 const MainFeaturedPost = () => {
-  // const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const today = new Date();
+
   const originalServiceKey =
     "SJM6rMj%2BVwpNDjc0d4VEiXQaczyN7xQkGOmGcSR1QtCoTqHbMHI4R34JvgORpwM%2FfSdkLeXwDMO7Bf7vLIAlSQ%3D%3D";
   const encodedServiceKey = encodeServiceKey(originalServiceKey);
 
-  // useEffect(() => {
-  //   //컴포넌트가 렌더링 될 때마다 API 요청
-  //   //async 를 처리하는 함수
-  //   const fetchData = async () => {
-  //     setLoading(true); //로딩 상태 활성화
-  //     try {
-  //       const response = await axios.get(
-  //         "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst",
-  //         {
-  //           params: {
-  //             serviceKey:
-  //               "SJM6rMj+VwpNDjc0d4VEiXQaczyN7xQkGOmGcSR1QtCoTqHbMHI4R34JvgORpwM/fSdkLeXwDMO7Bf7vLIAlSQ==",
-  //             numOfRows: 10,
-  //             pageNo: 1,
-  //             dataType: "json",
-  //             base_date: "20240119",
-  //             base_time: "0500",
-  //             nx: 51,
-  //             ny: 125,
-  //           },
-  //         }
-  //       );
-  //       // Check if the expected properties exist in the response
-  //       if (
-  //         response.data &&
-  //         response.data.response &&
-  //         response.data.response.body &&
-  //         response.data.response.body.items
-  //       ) {
-  //         const dataAll = response.data.response.body.items.item;
-  //         console.log(dataAll);
-  //         //setWeatherData(dataAll);
+  useEffect(() => {
+    //컴포넌트가 렌더링 될 때마다 API 요청
+    //async 를 처리하는 함수
+    const fetchData = async () => {
+      setLoading(true); //로딩 상태 활성화
+      try {
+        const response = await axios.get(
+          "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst",
+          {
+            params: {
+              serviceKey:
+                "SJM6rMj+VwpNDjc0d4VEiXQaczyN7xQkGOmGcSR1QtCoTqHbMHI4R34JvgORpwM/fSdkLeXwDMO7Bf7vLIAlSQ==",
+              numOfRows: 10,
+              pageNo: 1,
+              dataType: "json",
+              base_date: "20240131",
+              base_time: "0500",
+              nx: 51,
+              ny: 125, //인천의 경도위도 전송
+            },
+          }
+        );
+        // Check if the expected properties exist in the response
+        if (
+          response.data &&
+          response.data.response &&
+          response.data.response.body &&
+          response.data.response.body.items
+        ) {
+          const dataAll = response.data.response.body.items.item;
+          console.log(dataAll);
 
-  //         //필요한 SKY 카테고리의 데이터만 추출
-  //         const skyData = dataAll.find((item) => item.category === "SKY");
-  //         console.log("---날씨만 출력----");
-  //         console.log(skyData.fcstValue);
+          //skyData 에 인천의 SKY 카테고리의 데이터만 추출하여 넣음
+          const skyData = dataAll.find((item) => item.category === "SKY");
+          console.log("---인천의 날씨 수치 :----");
+          console.log(skyData.fcstValue);
+          setWeatherData(skyData);
+        } else {
+          console.error("Unexpected response structure:", response.data);
+        }
+      } catch (err) {
+        console.log("error ");
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+  // 빈 배열을 전달하는 경우 : 컴포넌트가 마운트될 때만 실행되도록 함
+  // Data를 넣을 경우 : 해당 데이터가 변경될 때마다 useEffect 실행
 
-  //         setWeatherData(skyData);
-  //       } else {
-  //         console.error("Unexpected response structure:", response.data);
-  //       }
-  //     } catch (err) {
-  //       console.log("error ");
-  //     }
-  //     setLoading(false);
-  //   };
-  //   fetchData();
-  // }, []);
+  //weatherData에 인천의 하늘 정보 저장된 상태
 
   //대기중일때
-  // if (loading) {
-  //   return <Paper>대기중...</Paper>;
-  // }
+  if (loading) {
+    return <Paper>대기중...</Paper>;
+  }
 
-  // if (!weatherData) {
-  //   return null;
-  // }
-  //
+  if (!weatherData) {
+    return null;
+  }
 
   let post;
-  const weatherData = {
-    fcstValue: "7",
-  };
+  // const weatherData = {
+  //   fcstValue: "7",
+  // };
 
   //str데이터 -> int 타입 10진수로 파싱
-  const intFcstValue = parseInt(weatherData.fcstValue, 10);
+  const icFcstValue = parseInt(weatherData.fcstValue, 10);
 
-  if (intFcstValue >= "0" && intFcstValue <= "5") {
+  if (icFcstValue >= "0" && icFcstValue <= "5") {
     console.log("맑음");
     post = {
       title: "오늘의 날씨는,",
@@ -96,7 +101,7 @@ const MainFeaturedPost = () => {
       image: "img/sunny.jpg",
       imageText: "main image description",
     };
-  } else if (intFcstValue >= "6" && intFcstValue <= "8") {
+  } else if (icFcstValue >= "6" && icFcstValue <= "8") {
     console.log("구름많음");
     post = {
       title: "오늘의 날씨는",
@@ -107,7 +112,7 @@ const MainFeaturedPost = () => {
       link: "#",
       linkText: "결항 항공편 상세보기…",
     };
-  } else if (intFcstValue >= "9" && intFcstValue <= "10") {
+  } else if (icFcstValue >= "9" && icFcstValue <= "10") {
     console.log("흐림");
     post = {
       title: "오늘의 날씨는",
@@ -135,6 +140,7 @@ const MainFeaturedPost = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundImage: `url("${post.image}")`,
+          height: { xs: "230px", laptop: "350px" },
         }}
       >
         {/* Increase the priority of the hero background image */}
