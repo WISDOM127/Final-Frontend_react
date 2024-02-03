@@ -7,17 +7,26 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import getToday from "../components/GetToday";
 // import imageUrl from "../../assets/rain.jpg";
 
 function encodeServiceKey(serviceKey) {
   return encodeURIComponent(serviceKey);
 }
 
-const MainFeaturedPost = () => {
+const MainWeatherPost = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const todayInfo = getToday;
+  const { year, month, day } = todayInfo;
+  const todayValue = year + month + day; //'yyyyMMdd'
 
-  const today = new Date();
+  // 출력
+  console.log("JSON:", todayInfo);
+  console.log("년:", year);
+  console.log("월:", month);
+  console.log("일:", day);
+  console.log("년월일:", todayValue);
 
   const originalServiceKey =
     "SJM6rMj%2BVwpNDjc0d4VEiXQaczyN7xQkGOmGcSR1QtCoTqHbMHI4R34JvgORpwM%2FfSdkLeXwDMO7Bf7vLIAlSQ%3D%3D";
@@ -38,7 +47,7 @@ const MainFeaturedPost = () => {
               numOfRows: 10,
               pageNo: 1,
               dataType: "json",
-              base_date: "20240131",
+              base_date: todayValue,
               base_time: "0500",
               nx: 51,
               ny: 125, //인천의 경도위도 전송
@@ -203,4 +212,4 @@ const MainFeaturedPost = () => {
 //   }).isRequired,
 // };
 
-export default MainFeaturedPost;
+export default MainWeatherPost;

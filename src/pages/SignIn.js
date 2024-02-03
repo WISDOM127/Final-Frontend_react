@@ -13,6 +13,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -37,13 +39,49 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  //로그인을 위한 member 객체 생성 & 초기값 지정
+  const [member, setMember] = useState({
+    memberId: "",
+    password: "",
+  });
+
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
+
+  // const updateMemberInfo = () => {
+  //   setMember({
+  //     memberId: username,
+  //     password: password,
+  //   });
+  // };
+
+  //로그인 버튼 클릭 event 발생 시 handleSubmit 실행
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    //   updateMemberInfo();
+
+    try {
+      console.log({
+        memberId: member.memberId,
+        password: member.password,
+      });
+
+      //백엔드 컨트롤러 /SignUser 로 member 객체 전송
+      const response = await axios.post("/SignUser", member);
+      console.log(response.data);
+    } catch (error) {
+      console.log("axios에러 : ", error);
+    }
+  };
+
+  //onChange={handleKeywordChange} 으로 폼 입력데이터가 변할 때마다 멤버 객체의 데이터 값도 변한다.
+  const handleKeywordChange = (event) => {
+    const memberId = event.target.value;
+    setMember((prevMember) => ({ ...member, memberId }));
+  };
+  const handleKeywordChange2 = (event) => {
+    const password = event.target.value;
+    setMember((prevMember) => ({ ...member, password }));
   };
 
   return (
@@ -93,20 +131,26 @@ export default function SignIn() {
                 margin="normal"
                 required
                 fullWidth
-                id="userId"
+                // id="username"
                 label="아이디를 입력해 주세요"
-                name="userId"
-                autoComplete="userId"
+                // name="username"
+                onChange={handleKeywordChange}
+                value={member.memberId}
+                autoComplete="memberId"
                 autoFocus
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                // name="password"
+                // onChange={(event) => setPassword(event.target.value)}
+                // value={password}
+                onChange={handleKeywordChange2}
+                value={member.password}
                 label="비밀번호를 입력해주세요"
                 type="password"
-                id="password"
+                // id="password"
                 autoComplete="current-password"
               />
               <Button

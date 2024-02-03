@@ -1,7 +1,7 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
-import TerminalsMain from "../../components/TerminalsMain";
-import Nav from "../../components/Nav";
+//import TerminalsMain from "../../components/TerminalsMain";
+//import Nav from "../../components/Nav";
 import { useState } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import T1Mapper from "../../components/T1Mapper";
@@ -11,20 +11,17 @@ const infoCardsections = [
   {
     title: "Terminal-1",
     url: "#",
-    image: "/img/t1map750x800.png",
+    image: "/img/t1map1080x1200.png",
     alt: "t1inout",
+    //width: '{ xs: "320px", mob: "500px", laptop: "1080px" }',
   },
   {
     title: "Terminal-2",
     url: "#",
-    image: "/img/incheon-airportT2.jpg",
+    image: "/img/t2map1200x700.png",
     alt: "t2inout",
+    //width: '{ xs: "350px", mob: "600px", laptop: "1200px" }',
   },
-];
-
-const navbardata = [
-  { title: "Terminal 1", url: "/T1Info" },
-  { title: "Terminal 2", url: "#" },
 ];
 
 export default function T1Info() {
@@ -36,10 +33,10 @@ export default function T1Info() {
 
   const buttons = [
     <Button key="Terminal 1" onClick={() => handleTerminalClick(0)}>
-      One
+      Terminal 1
     </Button>,
     <Button key="Terminal 2" onClick={() => handleTerminalClick(1)}>
-      Two
+      Terminal 2
     </Button>,
   ];
 
@@ -56,14 +53,22 @@ export default function T1Info() {
         <ButtonGroup
           orientation="vertical"
           aria-label="vertical outlined button group"
-          //sx={{ position: "absolute", top: "200px", right: 0 }}
+          sx={{ position: "absolute", top: "200px", right: 0 }}
         >
           {buttons}
         </ButtonGroup>
       </div>
 
-      <Grid container spacing={5} sx={{ mt: 1 }}>
+      <Grid
+        container
+        justifyContent="center"
+        spacing={5}
+        sx={{
+          mt: 1,
+        }}
+      >
         <T1Mapper selectedTerminal={selectedTerminal} />
+
         {/* <TerminalsMain infoContents="" infoCardsections={[selectedTerminal]} /> */}
       </Grid>
 
