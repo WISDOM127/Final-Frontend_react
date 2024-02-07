@@ -21,7 +21,7 @@ const featuredPosts = [
     description2: " Checking Airport congestion...",
     image: "img/incheon-airportT1.jpg",
     imageLabel: "incheon-airportT1",
-    url: "/t1Info",
+    url: "/terminalsInfo",
   },
   {
     title: "T2",

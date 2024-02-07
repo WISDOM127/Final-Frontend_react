@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
@@ -10,14 +11,14 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import T1Info from "./pages/Terminals/T1Info";
-import T2Info from "./pages/Terminals/T2Info";
 import NotFound from "./components/NotFound";
+import TerminalsInfo from "./pages/Congestion/TerminalsInfo";
+import AirRouteInfo from "./pages/Congestion/AirRouteInfo";
 
 function App() {
   const sections = [
-    { title: "터미널별 혼잡도", url: "/T1Info" },
-    { title: "노선별 혼잡도", url: "#" },
+    { title: "터미널별 혼잡도", url: "/terminalsInfo" },
+    { title: "노선별 혼잡도", url: "/airRouteInfo" },
     { title: "결항 노선 조회", url: "#" },
     { title: "편의시설", url: "#" },
     // { title: "커뮤니티", url: "#" },
@@ -63,8 +64,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/signUp" element={<SignUp />} />
-            <Route path="/t1Info" element={<T1Info />} />
-            <Route path="/t2Info" element={<T2Info />} />
+
+            <Route path="/terminalsInfo" element={<TerminalsInfo />} />
+            <Route path="/airRouteInfo" element={<AirRouteInfo />} />
+
+            <Route path="terminalsInfo/t1info" element={<TerminalsInfo />} />
+            <Route path="terminalsInfo/t2info" element={<TerminalsInfo />} />
 
             <Route path={"*"} element={<NotFound />} />
           </Routes>
