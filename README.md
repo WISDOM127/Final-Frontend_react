@@ -6,7 +6,22 @@
 - 기상청 단기예보 데이터 API <br/>
 - 인천국제공항공사 입국장현황 데이터 API(미완)
 </ol>
-  
+
+# 반응형 웹 기준(width)
+<ol>
+ xs: 0, <br/>
+ mobile: ~480px, <br/>
+ tablet: ~768px, <br/>
+ laptop: ~1024px, <br/><br/>
+<strong><li>터미널1 지도 이미지 기준</li></strong>
+- mobile: 450 <br/>
+- tablet: 720 <br/>
+- laptop: 1080 <br/><br/>
+<strong><li>터미널2 지도 이미지 기준</li></strong>
+- mobile: 600 <br/>
+- tablet: 1080 <br/>
+- laptop: 1200 <br/><br/>
+</ol>
 
 # react-router v6 부터 바뀐 문법 참고
 - switch -> routes 네이밍 변경
