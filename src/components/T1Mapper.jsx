@@ -28,6 +28,24 @@ const depCoords1080px = [
   [221, 656, 268, 629, 295, 666, 249, 693],
 ];
 
+const depCoords720px = [
+  [554, 423, 580, 443, 561, 465, 533, 445],
+  [503, 398, 535, 412, 519, 439, 487, 423],
+  [431, 382, 465, 389, 459, 416, 425, 410],
+  [287, 386, 322, 379, 328, 408, 292, 414],
+  [212, 405, 246, 395, 257, 422, 223, 434],
+  [148, 437, 178, 421, 197, 444, 166, 462],
+];
+
+const depCoords450px = [
+  [346, 265, 363, 277, 350, 291, 333, 279],
+  [315, 249, 334, 258, 324, 274, 305, 264],
+  [269, 240, 290, 243, 287, 260, 265, 257],
+  [180, 241, 202, 238, 205, 255, 183, 259],
+  [133, 254, 154, 247, 160, 264, 140, 271],
+  [93, 274, 112, 263, 122, 278, 103, 288],
+];
+
 const T1Mapper = ({ congestionData }) => {
   const URL = "/img/t1map1080x1200.png";
   const [hoveredArea, setHoveredArea] = useState(null);
@@ -47,7 +65,6 @@ const T1Mapper = ({ congestionData }) => {
   const [colorStatus5, setColorStatus5] = useState("");
   const [colorStatus6, setColorStatus6] = useState("");
 
-  //const [coordStatus, setCoordStatus] = useState([]);
   const [coordstatus1, setCoordstatus1] = useState([]);
   const [coordstatus2, setCoordstatus2] = useState([]);
   const [coordstatus3, setCoordstatus3] = useState([]);
@@ -61,13 +78,30 @@ const T1Mapper = ({ congestionData }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("tab"));
   const isLap = useMediaQuery(theme.breakpoints.down("laptop"));
-  const [imageWidth, setImageWidth] = useState(1080);
+  const [imageWidth, setImageWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    // 초기 렌더링 시에 브라우저 사이즈를 읽어옴
+    setImageWidth(window.innerWidth);
+  }, []);
 
   useEffect(() => {
     if (isMobile) {
       setImageWidth(450);
+      setCoordstatus6(depCoords450px[5]);
+      setCoordstatus5(depCoords450px[4]);
+      setCoordstatus4(depCoords450px[3]);
+      setCoordstatus3(depCoords450px[2]);
+      setCoordstatus2(depCoords450px[1]);
+      setCoordstatus1(depCoords450px[0]);
     } else if (isLap) {
       setImageWidth(720);
+      setCoordstatus6(depCoords720px[5]);
+      setCoordstatus5(depCoords720px[4]);
+      setCoordstatus4(depCoords720px[3]);
+      setCoordstatus3(depCoords720px[2]);
+      setCoordstatus2(depCoords720px[1]);
+      setCoordstatus1(depCoords720px[0]);
     } else {
       setImageWidth(1080);
       setCoordstatus6(depCoords1080px[5]);
@@ -79,7 +113,7 @@ const T1Mapper = ({ congestionData }) => {
     }
 
     console.log("좌표저장확인" + coordstatus1);
-  }, [isMobile, isLap]);
+  }, [isMobile, isLap, imageWidth]);
 
   //출국장 1
   useEffect(() => {

@@ -52,7 +52,7 @@ const infoCardsections = [
   },
   {
     title: "약국",
-    url: "#",
+    url: "https://www.airport.kr/ap/ko/svc/getFacilityMain.do",
     image:
       "https://cdn.pixabay.com/photo/2017/09/30/01/42/medicine-2801025_1280.png",
     alt: "pharmacy",

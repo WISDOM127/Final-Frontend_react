@@ -11,10 +11,11 @@ import axios from "axios";
 
 export default function TerminalsInfo() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [showT1Mapper, setShowT1Mapper] = useState(false);
   const [showT2Mapper, setShowT2Mapper] = useState(false);
   const [congestionData, setCongestionData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [selectedBtn, setSelectedBtn] = useState(1);
 
   const todayInfo = getToday;
   const { year, month, day, hours } = todayInfo;
@@ -27,15 +28,7 @@ export default function TerminalsInfo() {
   console.log("시:", hours);
   console.log("년월일:", todayValue);
 
-  //const atime = "08";
   const atime = hours;
-
-  // const infoCardsections = {
-  //   title: "Terminal-1",
-  //   watingPassenger: 120,
-  //   msg: "값 전달 테스트",
-  //   data: congestionData,
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,21 +47,31 @@ export default function TerminalsInfo() {
         console.log("서버에서 받은 데이터 :" + congestionData?.t1sum6);
       } catch (error) {
         console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [atime]);
   //atime
+
+  //대기중일때
+  if (loading) {
+    return <div className="P_T1Info">대기중...</div>;
+  }
+
+  if (!congestionData) {
+    return null;
+  }
 
   //onChange={handleTerminalClick1} 으로 입력데이터가 변할 때마다 멤버 객체의 데이터 값도 변한다.
   const handleTerminal1click = (event) => {
+    setSelectedBtn(1);
     setShowT1Mapper(true);
     setShowT2Mapper(false);
     navigate(`/terminalsInfo/t1info`);
   };
   const handleTerminal2click = (event) => {
+    setSelectedBtn(2);
     setShowT1Mapper(false);
     setShowT2Mapper(true);
     navigate(`/terminalsInfo/t2info`);
@@ -81,10 +84,16 @@ export default function TerminalsInfo() {
         Terminal 1
       </Button> */}
 
-      <Button variant="outlined" onClick={handleTerminal1click}>
+      <Button
+        variant="outlined"
+        onClick={handleTerminal1click}
+      >
         Terminal 1
       </Button>
-      <Button variant="outlined" onClick={handleTerminal2click}>
+      <Button
+        variant="outlined"
+        onClick={handleTerminal2click}
+      >
         Terminal 2
       </Button>
 
@@ -96,12 +105,11 @@ export default function TerminalsInfo() {
           mt: 1,
         }}
       >
-        {showT1Mapper && <T1Mapper congestionData={congestionData} />}
-        {showT2Mapper && <T2Mapper congestionData={congestionData} />}
+        {/* {showT1Mapper && <T1Mapper congestionData={congestionData} />} */}
+        {/* {showT2Mapper && <T2Mapper congestionData={congestionData} />} */}
         {/* <TerminalsMain infoContents="" infoCardsections={[selectedTerminal]} /> */}
-        {/* {selectedTerminal.title === "Terminal-1" && (
-          <T1Mapper selectedTerminal={selectedTerminal} />
-        )} */}
+        {selectedBtn === 1 && <T1Mapper congestionData={congestionData} />}
+        {selectedBtn === 2 && <T2Mapper congestionData={congestionData} />}
       </Grid>
     </div>
   );

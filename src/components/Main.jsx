@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Main(props) {
   const { title, infoContents, infoCardsections } = props;
@@ -51,61 +52,63 @@ function Main(props) {
               }
             }
           >
-            <Card
-              key={section.title}
-              sx={{
-                // border: "1px solid black",
+            <a href={section.url} target="_blank" rel="noopener noreferrer">
+              <Card
+                key={section.title}
+                sx={{
+                  // border: "1px solid black",
 
-                height: {
-                  xs: "150px",
-                  mob: "150px",
-                  tab: "200px",
-                  laptop: "350px",
-                },
-                width: {
-                  xs: "100px",
-                  mob: "100px",
-                  tab: "180px",
-                  laptop: "300px",
-                },
-              }}
-            >
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image={section.image}
-                  alt={section.alt}
-                  objectFit="fill"
-                  sx={{
-                    // border: "1px solid black",
-                    height: {
-                      xs: "100px",
-                      mob: "100px",
-                      tab: "150px",
-                      laptop: "300px",
-                    },
-                    width: {
-                      xs: "100px",
-                      mob: "100px",
-                      tab: "180px",
-                      laptop: "300px",
-                    },
-                  }}
-                />
-                <CardContent>
-                  <Typography
+                  height: {
+                    xs: "150px",
+                    mob: "150px",
+                    tab: "200px",
+                    laptop: "350px",
+                  },
+                  width: {
+                    xs: "100px",
+                    mob: "100px",
+                    tab: "180px",
+                    laptop: "300px",
+                  },
+                }}
+              >
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    image={section.image}
+                    alt={section.alt}
+                    objectFit="fill"
                     sx={{
-                      fontSize: { xs: "12px", tab: "18px" },
-                      fontWeight: "600",
+                      // border: "1px solid black",
+                      height: {
+                        xs: "100px",
+                        mob: "100px",
+                        tab: "150px",
+                        laptop: "300px",
+                      },
+                      width: {
+                        xs: "100px",
+                        mob: "100px",
+                        tab: "180px",
+                        laptop: "300px",
+                      },
                     }}
-                    gutterBottom
-                    component="div"
-                  >
-                    {section.title}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+                  />
+                  <CardContent>
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "12px", tab: "18px" },
+                        fontWeight: "600",
+                      }}
+                      gutterBottom
+                      component="div"
+                    >
+                      {section.title}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </a>
           </Grid>
         ))}
       </Grid>

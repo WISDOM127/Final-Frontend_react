@@ -65,7 +65,12 @@ function App() {
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/signUp" element={<SignUp />} />
 
-            <Route path="/terminalsInfo" element={<TerminalsInfo />} />
+            <Route
+              path="/terminalsInfo"
+              element={
+                <TerminalsInfo />
+              }
+            />
             <Route path="/airRouteInfo" element={<AirRouteInfo />} />
 
             <Route path="terminalsInfo/t1info" element={<TerminalsInfo />} />
