@@ -17,9 +17,9 @@ import AirRouteInfo from "./pages/Congestion/AirRouteInfo";
 
 function App() {
   const sections = [
-    { title: "터미널별 혼잡도", url: "/terminalsInfo" },
-    { title: "노선별 혼잡도", url: "/airRouteInfo" },
-    { title: "결항 노선 조회", url: "#" },
+    { title: "출국장 혼잡도", url: "/terminalsInfo" },
+    { title: "결항 노선 조회", url: "/airRouteInfo" },
+    { title: "커뮤니티", url: "#" },
     { title: "편의시설", url: "#" },
     // { title: "커뮤니티", url: "#" },
   ];
@@ -65,16 +65,11 @@ function App() {
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/signUp" element={<SignUp />} />
 
-            <Route
-              path="/terminalsInfo"
-              element={
-                <TerminalsInfo />
-              }
-            />
+            <Route path="/terminals/:terminalId" element={<TerminalsInfo />} />
             <Route path="/airRouteInfo" element={<AirRouteInfo />} />
 
-            <Route path="terminalsInfo/t1info" element={<TerminalsInfo />} />
-            <Route path="terminalsInfo/t2info" element={<TerminalsInfo />} />
+            {/* <Route path="terminalsInfo/t1info" element={<TerminalsInfo />} />
+            <Route path="terminalsInfo/t2info" element={<TerminalsInfo />} /> */}
 
             <Route path={"*"} element={<NotFound />} />
           </Routes>

@@ -10,7 +10,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { useState } from "react";
 import styled from "styled-components";
 
-function FeaturedPost(props) {
+function TerminalCard(props) {
   const { post } = props;
   const [isHovered, setIsHovered] = useState(false);
 
@@ -102,7 +102,7 @@ function FeaturedPost(props) {
   );
 }
 
-FeaturedPost.propTypes = {
+TerminalCard.propTypes = {
   post: PropTypes.shape({
     date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -112,4 +112,4 @@ FeaturedPost.propTypes = {
   }).isRequired,
 };
 
-export default FeaturedPost;
+export default TerminalCard;
