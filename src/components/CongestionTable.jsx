@@ -9,6 +9,11 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/system";
 import { Button } from "@mui/material";
 
+const TableContainerStyled = styled(TableContainer)`
+  margin: 0;
+  padding: 0;
+`;
+
 function createData(name, calories, fat) {
   return { name, calories, fat };
 }
@@ -23,30 +28,24 @@ const rows = [
 
 export default function CongestionTable() {
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ marginTop: "30px", width: { xs: 350, tab: 450 } }}
-    >
+    // <TableContainerStyled component={Paper}>
+    <TableContainer component={Paper}>
       {/* <span>출국장별 혼잡도를 기준으로 합니다</span> */}
       <Table
-        sx={
-          {
-            //width: { xs: 350, tab: 500 },
-          }
-        }
         aria-label="simple table"
+        sx={{ margin: 0, padding: 0, width: 650 }}
       >
         <TableHead>
           <TableRow
             sx={{
               "&:last-child td, &:last-child th": {
-                //border: "1px solid black",
                 fontSize: { xs: "12px", tab: "12px" },
                 fontWeight: "bold",
+                borderTop: "none",
               },
             }}
           >
-            <TableCell>혼잡도 기준</TableCell>
+            <TableCell sx={{ width: "80px" }}>혼잡도 기준</TableCell>
             <TableCell align="center">제&nbsp;1&nbsp;터미널</TableCell>
             <TableCell align="center">제&nbsp;2&nbsp;터미널</TableCell>
           </TableRow>
@@ -58,6 +57,9 @@ export default function CongestionTable() {
               sx={{
                 "&>*": {
                   fontSize: { xs: "11px", tab: "13px" },
+                  height: "10px",
+                  margin: 0,
+                  padding: "5px 15px",
                 },
               }}
             >
@@ -67,7 +69,6 @@ export default function CongestionTable() {
                   size="small"
                   style={{
                     fontSize: "12px",
-                    //fontWeight:"bold",
                     backgroundColor:
                       row.name === "매우혼잡"
                         ? "red"

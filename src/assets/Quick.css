@@ -1,0 +1,38 @@
+.msg {
+  font-size: 12px;
+  margin-bottom: 3px;
+  color: red;
+  text-align: right;
+}
+
+.quick-menu {
+  position: fixed;
+  width: 300;
+  top: 40%;
+  margin-top: -50px;
+  right: 10px;
+  background: #fff;
+  transform: translateY(-50%);
+  transition: top 0.3s ease-in-out;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 0 0 10px 10px rgba(41, 41, 41, 0.1);
+  z-index: 1000;
+}
+
+.scrolled {
+  top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  /* Apply styles only when the screen width is 600 pixels or less */
+  .quick-menu {
+    width: 70%;
+    top: 90%;
+    /* background: #fff;
+    transform: translateY(-50%);
+    transition: top 0.3s ease-in-out; */
+    border-radius: 5px;
+    padding: 0px;
+  }
+}

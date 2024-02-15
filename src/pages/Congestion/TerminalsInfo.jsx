@@ -2,7 +2,7 @@ import * as React from "react";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import T1Mapper from "./T1Mapper";
 import T2Mapper from "./T2Mapper";
 import getToday from "../../components/GetToday";
@@ -10,6 +10,15 @@ import styled from "styled-components";
 import axios from "axios";
 import CongestionTable from "../../components/CongestionTable";
 import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
+import Quick from "../../components/Quick";
+
+// Styled-components를 사용하여 CongestionTable을 오른쪽 상단에 고정
+const StyledCongestionTable = styled(CongestionTable)`
+  position: fixed;
+  top: 20px;
+  right: 10px;
+  z-index: 1000; /* 필요에 따라 z-index 조정 */
+`;
 
 //스타일
 const TimeContainer = styled.div`
@@ -18,10 +27,6 @@ const TimeContainer = styled.div`
   color: #424242;
   //border: 1px solid #ddd;
 `;
-
-// const TableContainer = styled.div`
-//   font-size: 30px;
-// `;
 
 const TerminalsInfo = (어떤변수) => {
   const { terminalId } = useParams();
@@ -102,28 +107,38 @@ const TerminalsInfo = (어떤변수) => {
 
   return (
     <div className="P_T1Info">
-      <br />
-      <Button variant="outlined" onClick={handleTerminal1click}>
-        Terminal 1
-      </Button>
-      <Button variant="outlined" onClick={handleTerminal2click}>
-        Terminal 2
-      </Button>
+      {/* <Grid container justifyContent="flex-end">
+        <Grid item>
+          <StyledCongestionTable />
+        </Grid>
+      </Grid> */}
+      <Quick />
       <Grid
         container
-        direction="row"
+        direction="column"
         justifyContent="center"
         alignItems="center"
       >
+        <br />
         <Grid>
-          <TimeContainer>현재시간 : {today}</TimeContainer>
+          <Button variant="outlined" onClick={handleTerminal1click}>
+            Terminal 1
+          </Button>
+          <Button variant="outlined" onClick={handleTerminal2click}>
+            Terminal 2
+          </Button>
         </Grid>
+        <br />
         <Grid>
-          <ReplayRoundedIcon
-            fontSize="large"
-            color="secondary"
-            onClick={reloadclick}
-          />
+          <TimeContainer>
+            현재시간 : {today}{" "}
+            <ReplayRoundedIcon
+              // sx={{border:"1px solid black", }}
+              fontSize="large"
+              color="secondary"
+              onClick={reloadclick}
+            />
+          </TimeContainer>
         </Grid>
       </Grid>
       <Grid
@@ -152,16 +167,6 @@ const TerminalsInfo = (어떤변수) => {
           )}
         </Grid>
         <br />
-        <Grid
-          Container
-          fixed
-          item
-          sx={{
-            margin: "5px auto",
-          }}
-        >
-          <CongestionTable />
-        </Grid>
       </Grid>
     </div>
   );
