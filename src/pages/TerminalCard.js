@@ -33,13 +33,13 @@ function TerminalCard(props) {
               backgroundSize: { xs: "cover", tab: "block" },
               backgroundRepeat: "no-repeat",
               backgroundPosition: { xs: "center", tab: "none" },
-              height: { xs: "150px", tab: "auto" },
-              maxHeight: { xs: "150px", tab: "250px" },
+              height: { xs: "150px", tab: "180px" },
               cursor: "pointer",
               transition: "background-color 0.3s", // 부드러운 hover 효과를 위한 트랜지션 추가
 
               "&:hover": {
-                transform: "scale(1.1)",
+                transform: { xs: "scale(1.1)", tab: "none" },
+                height: { xs: "auto", tab: "250px" },
               },
             }}
             onMouseEnter={() => setIsHovered(true)}

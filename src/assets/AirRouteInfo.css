@@ -1,0 +1,93 @@
+.linkMenu {
+  text-align: left;
+  /* border: 1px solid #ddd; */
+  width: 80%;
+  margin: 10px auto;
+}
+
+.linkMenu a {
+  text-decoration: none;
+}
+
+h1 {
+  /* font-size: 20px; */
+  text-align: center;
+}
+
+table {
+  width: 60%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+td {
+  border: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+  padding: 3%;
+  text-align: center;
+}
+
+th {
+  /* background-color: #f2f2f2; */
+  border: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid;
+  padding: 2%;
+  text-align: center;
+}
+
+/* 열&행 스타일 */
+.airline {
+  width: 15%;
+  /* border: 1px solid #ddd; */
+}
+
+.no {
+  width: 10%;
+  /* border: 1px solid #ddd; */
+}
+
+.dep {
+  width: 20%;
+}
+
+.scheduleTime {
+  width: 10%;
+}
+
+.estimatedTime {
+  width: 10%;
+}
+
+.remark {
+  width: 10%;
+}
+
+.chkin {
+  width: 15%;
+}
+.gate {
+  width: 10%;
+}
+
+/*  */
+.button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+  display: inline-block;
+  padding: 10px;
+  background-color: #42a5f5;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10px;
+
+  &:hover {
+    background-color: #0d47a1;
+  }
+}

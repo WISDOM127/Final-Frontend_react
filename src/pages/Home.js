@@ -4,6 +4,8 @@ import TerminalCard from "./TerminalCard";
 import Main from "../components/Main";
 import Divider from "@mui/material/Divider";
 import MainWeatherPost from "../components/MainWeatherPost";
+import SearchBar from "../components/SearchBar";
+import Table from "../components/Table";
 
 const terminalList = [
   {
@@ -16,7 +18,7 @@ const terminalList = [
     imageLabel: "incheon-airportT1",
     url: "terminals/t1info",
   },
-  { 
+  {
     title: "T2",
     subtitle: "제 2 여객터미널",
     description:
@@ -59,28 +61,51 @@ const infoCardsections = [
   },
 ];
 
+function createData(
+  flightId,
+  airline,
+  scheduleDateTime,
+  estimatedDateTime,
+  remark
+) {
+  return { flightId, airline, scheduleDateTime, estimatedDateTime, remark };
+}
+
+const rows = [
+  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+];
+
 export default function Home() {
   return (
     <main>
       {/* 오늘의 날씨 */}
       <MainWeatherPost />
-      {/* post={mainFeaturedPost} */}
       {/* 터미널 탭 */}
       <Grid container spacing={2}>
         {terminalList.map((post) => (
           <TerminalCard key={post.title} post={post} />
         ))}
       </Grid>
+      {/* 검색창 */}
+      <Divider sx={{ mt: 6 }} />
+      <Grid container sx={{ mt: 5 }}>
+        <SearchBar />
+        {/* <Table rows={rows} /> */}
+        {/* {rows.map((row) => (
+          <Table key={row.flightId} rows={rows} />
+        ))} */}
+      </Grid>
 
       {/* 편의시설 탭 */}
       <Divider sx={{ mt: 6 }} />
-      <Grid container spacing={2} sx={{ mt: 5 }}>
+      {/* <Grid container spacing={2} sx={{ mt: 5 }}>
         <Main
           title="편의시설"
           infoContents="인천공항 내 편의시설을 찾고 계신가요?"
           infoCardsections={infoCardsections}
         />
-      </Grid>
+      </Grid> */}
     </main>
   );
 }

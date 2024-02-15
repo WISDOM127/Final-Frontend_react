@@ -137,19 +137,7 @@ const T1Mapper = ({ congestionData }) => {
   useEffect(() => {
     let passenger = intCongestions.dep12;
     console.log("1", passenger);
-
-    if (passenger < 1160) {
-      setColorStatus1(colorCodes.colorSky);
-    } else if (passenger >= 1160 && passenger <= 1260) {
-      setColorStatus1(colorCodes.colorGreen);
-    } else if (passenger > 1260 && passenger <= 1360) {
-      setColorStatus1(colorCodes.colorYellow);
-    } else if (passenger > 1360 && passenger <= 1430) {
-      setColorStatus1(colorCodes.colorOrange);
-    } else {
-      setColorStatus1(colorCodes.colorRed);
-    }
-
+    condition(passenger, setColorStatus1);
     setCoordstatus1(depCoords1080px[0]); // 출국장1
   }, [intCongestions.dep12]);
 
@@ -210,6 +198,7 @@ const T1Mapper = ({ congestionData }) => {
         lineWidth: "2.5",
         preFillColor: colorStatus6,
         //count: intCongestions.dep56,
+
         msg: "교통약자 우대출구",
       },
       {
@@ -219,6 +208,7 @@ const T1Mapper = ({ congestionData }) => {
         strokeColor: colorStatus5.slice(0, -2),
         lineWidth: "2.5",
         preFillColor: colorStatus5,
+
         count: intCongestions.dep56,
       },
       {
@@ -228,6 +218,7 @@ const T1Mapper = ({ congestionData }) => {
         strokeColor: colorStatus4.slice(0, -2),
         lineWidth: "2.5",
         preFillColor: colorStatus4,
+
         count: intCongestions.dep4,
       },
       {
@@ -237,6 +228,7 @@ const T1Mapper = ({ congestionData }) => {
         strokeColor: colorStatus3.slice(0, -2),
         lineWidth: "2.5",
         preFillColor: colorStatus3,
+
         count: intCongestions.dep3,
       },
       {
@@ -246,6 +238,7 @@ const T1Mapper = ({ congestionData }) => {
         strokeColor: colorStatus2.slice(0, -2),
         lineWidth: "2.5",
         preFillColor: colorStatus2,
+
         count: intCongestions.dep12,
       },
       {
@@ -256,6 +249,7 @@ const T1Mapper = ({ congestionData }) => {
         lineWidth: "2.5",
         //preFillColor: colorCodes.colorRed,
         preFillColor: colorStatus1,
+
         msg: "교통약자 우대출구",
       },
     ],
@@ -291,7 +285,12 @@ const T1Mapper = ({ congestionData }) => {
           {hoveredArea.name === "1" || hoveredArea.name === "6" ? (
             <p>{hoveredArea.msg}</p>
           ) : (
-            <p>예상 대기 인원 : {hoveredArea.count} 명</p>
+            <>
+              {hoveredArea.preFillColor === colorCodes.colorSky ? 
+                <p>원활</p>
+              : hoveredArea.preFillColor === colorCodes.colorGreen ? <p>보통</p> :hoveredArea.preFillColor === colorCodes.colorYellow ? <p>약간혼잡</p> : hoveredArea.preFillColor === colorCodes.colorOrange ? <p>혼잡</p>: hoveredArea.preFillColor === colorCodes.colorRed ? <p>매우혼잡</p>: "none"}
+              <p>예상 대기 인원 : {hoveredArea.count} 명</p>
+            </>
           )}
         </span>
       )}

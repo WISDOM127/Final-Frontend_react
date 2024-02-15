@@ -30,7 +30,7 @@ function Header(props) {
           noWrap
           sx={{ flex: 1 }}
         >
-          <Link href="/">{title}</Link>
+          <Link underline="none" href="/">{title}</Link>
         </Typography>
         {/* <IconButton>
           <SearchIcon />

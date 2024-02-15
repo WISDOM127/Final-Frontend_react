@@ -9,10 +9,14 @@ import getToday from "../../components/GetToday";
 import styled from "styled-components";
 import axios from "axios";
 import CongestionTable from "../../components/CongestionTable";
+import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
 
 //스타일
 const TimeContainer = styled.div`
   font-size: 25px;
+  font-weight: 600;
+  color: #424242;
+  //border: 1px solid #ddd;
 `;
 
 // const TableContainer = styled.div`
@@ -36,7 +40,7 @@ const TerminalsInfo = (어떤변수) => {
   const [clock, setclock] = useState(nowTime);
 
   // 1분마다 clock의 값을 다시 계산 후 랜더링 (setClock 이용)
-  setInterval(() => setclock(nowTime), 60000);
+  // setInterval(() => setclock(nowTime), 60000);
 
   // 출력
   console.log("JSON:", todayInfo);
@@ -92,6 +96,10 @@ const TerminalsInfo = (어떤변수) => {
     setShowT2Mapper(true);
   };
 
+  const reloadclick = (event) => {
+    window.location.reload();
+  };
+
   return (
     <div className="P_T1Info">
       <br />
@@ -101,16 +109,37 @@ const TerminalsInfo = (어떤변수) => {
       <Button variant="outlined" onClick={handleTerminal2click}>
         Terminal 2
       </Button>
-      <TimeContainer>{today}</TimeContainer>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid>
+          <TimeContainer>현재시간 : {today}</TimeContainer>
+        </Grid>
+        <Grid>
+          <ReplayRoundedIcon
+            fontSize="large"
+            color="secondary"
+            onClick={reloadclick}
+          />
+        </Grid>
+      </Grid>
       <Grid
         container
         justifyContent="center"
-        spacing={5}
+        spacing={0}
         sx={{
           mt: 1,
         }}
       >
-        <Grid>
+        <Grid
+          item
+          sx={{
+            margin: "auto",
+          }}
+        >
           {/* {showT1Mapper && <T1Mapper congestionData={congestionData} />} */}
           {/* {showT2Mapper && <T2Mapper congestionData={congestionData} />} */}
           {/* {selectedBtn === 1 && <T1Mapper congestionData={congestionData} />}
@@ -123,7 +152,14 @@ const TerminalsInfo = (어떤변수) => {
           )}
         </Grid>
         <br />
-        <Grid>
+        <Grid
+          Container
+          fixed
+          item
+          sx={{
+            margin: "5px auto",
+          }}
+        >
           <CongestionTable />
         </Grid>
       </Grid>

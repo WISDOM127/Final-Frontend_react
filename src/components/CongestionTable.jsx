@@ -14,21 +14,26 @@ function createData(name, calories, fat) {
 }
 
 const rows = [
-  createData("BLUE", "1160 명 이하", "1600 명 이하"),
-  createData("GREEN", "1160 명 초과 1260 이하", "1600 명 초과 1750 이하"),
-  createData("YELLOW", "1260 명 초과 1360 이하", "1750 명 초과 1900 이하"),
-  createData("ORANGE", "1360 명 초과 1430 이하", "1900 명 초과 2000 이하"),
-  createData("RED", "1430 초과", "2000 초과"),
+  createData("원활", "1160 명 이하", "1600 명 이하"),
+  createData("보통", "1160 명 초과 1260 이하", "1600 명 초과 1750 이하"),
+  createData("약간혼잡", "1260 명 초과 1360 이하", "1750 명 초과 1900 이하"),
+  createData("혼잡", "1360 명 초과 1430 이하", "1900 명 초과 2000 이하"),
+  createData("매우혼잡", "1430 초과", "2000 초과"),
 ];
 
 export default function CongestionTable() {
   return (
-    <TableContainer component={Paper} sx={{ marginTop: "30px" }}>
+    <TableContainer
+      component={Paper}
+      sx={{ marginTop: "30px", width: { xs: 350, tab: 450 } }}
+    >
       {/* <span>출국장별 혼잡도를 기준으로 합니다</span> */}
       <Table
-        sx={{
-          width: { xs: 350, tab: 500 },
-        }}
+        sx={
+          {
+            //width: { xs: 350, tab: 500 },
+          }
+        }
         aria-label="simple table"
       >
         <TableHead>
@@ -52,7 +57,7 @@ export default function CongestionTable() {
               key={row.name}
               sx={{
                 "&>*": {
-                  fontSize: { xs: "12px", tab: "13px" },
+                  fontSize: { xs: "11px", tab: "13px" },
                 },
               }}
             >
@@ -61,16 +66,18 @@ export default function CongestionTable() {
                   variant="contained"
                   size="small"
                   style={{
+                    fontSize: "12px",
+                    //fontWeight:"bold",
                     backgroundColor:
-                      row.name === "RED"
+                      row.name === "매우혼잡"
                         ? "red"
-                        : row.name === "ORANGE"
+                        : row.name === "혼잡"
                         ? "orange"
-                        : row.name === "YELLOW"
+                        : row.name === "약간혼잡"
                         ? "yellow"
-                        : row.name === "GREEN"
+                        : row.name === "보통"
                         ? "lightgreen"
-                        : row.name === "BLUE"
+                        : row.name === "원활"
                         ? "skyblue"
                         : "none",
                     color: "black",

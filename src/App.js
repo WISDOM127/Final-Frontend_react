@@ -13,15 +13,21 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import NotFound from "./components/NotFound";
 import TerminalsInfo from "./pages/Congestion/TerminalsInfo";
-import AirRouteInfo from "./pages/Congestion/AirRouteInfo";
+import AirRouteInfo from "./pages/AirRoutes/AirRouteInfo";
+import BoardList from "./pages/Board/BoardList";
+import BoardWrite from "./pages/Board/BoardWrite";
+
 
 function App() {
   const sections = [
-    { title: "출국장 혼잡도", url: "/terminalsInfo" },
-    { title: "결항 노선 조회", url: "/airRouteInfo" },
-    { title: "커뮤니티", url: "#" },
-    { title: "편의시설", url: "#" },
-    // { title: "커뮤니티", url: "#" },
+    { title: "출국장 혼잡도", url: "/terminals/t1info" },
+    { title: "항공편 조회", url: "/airRouteInfo" },
+    //{ title: "결항 노선 조회", url: "/airRouteInfo" },
+    { title: "커뮤니티", url: "/boardList" },
+    {
+      title: "편의시설",
+      url: "https://www.airport.kr/ap/ko/svc/getFacilityMain.do",
+    },
   ];
   // React 트리 전체 적용할 defaultTheme 테마 지정
   const defaultTheme = createTheme({
@@ -64,12 +70,15 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/signUp" element={<SignUp />} />
-
+            {/* 출국장혼잡도 */}
             <Route path="/terminals/:terminalId" element={<TerminalsInfo />} />
+            {/* 항공편 현황 조회 */}
             <Route path="/airRouteInfo" element={<AirRouteInfo />} />
+            {/* 커뮤니티 */}
+            <Route path="/boardList" element={<BoardList />} />
+            <Route path="/board/BoardWrite" element={<BoardWrite />} />
 
-            {/* <Route path="terminalsInfo/t1info" element={<TerminalsInfo />} />
-            <Route path="terminalsInfo/t2info" element={<TerminalsInfo />} /> */}
+            
 
             <Route path={"*"} element={<NotFound />} />
           </Routes>
