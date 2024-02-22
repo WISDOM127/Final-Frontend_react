@@ -15,7 +15,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 13,
+
+    [theme.breakpoints.down("tab")]: {
+      fontSize: 10,
+      margin: 0,
+      padding: 5,
+    },
+  },
+
+  // 반응형 폰트 크기 조절
+  [theme.breakpoints.down("tab")]: {
+    fontSize: 10,
+    margin: 0,
+    padding: 5,
   },
 }));
 
@@ -29,20 +42,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function flightInfoTables(props) {
-  const { rows } = props;
+const flightInfoTables = ({ rows }) => {
+  // function flightInfoTables(props) {
+  //   const { rows } = props;
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table
+        sx={{ minWidth: { xs: 100, tab: 600 } }}
+        aria-label="customized table"
+      >
         <TableHead>
           <TableRow>
             <StyledTableCell>항공사</StyledTableCell>
             <StyledTableCell align="right">편명</StyledTableCell>
             <StyledTableCell align="right">도착지</StyledTableCell>
-            <StyledTableCell align="right">예정시간</StyledTableCell>
-            <StyledTableCell align="right">변경시간</StyledTableCell>
+            <StyledTableCell align="right">도착예정</StyledTableCell>
+            <StyledTableCell align="right">도착변경</StyledTableCell>
             <StyledTableCell align="right">현황</StyledTableCell>
+            <StyledTableCell align="right">체크인 카운터</StyledTableCell>
+            <StyledTableCell align="right">터미널(GATE)</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,12 +79,14 @@ function flightInfoTables(props) {
                 {row.estimatedDateTime}
               </StyledTableCell>
               <StyledTableCell align="right">{row.remark}</StyledTableCell>
+              <StyledTableCell align="right">{row.chkinrange}</StyledTableCell>
+              <StyledTableCell align="right">{row.gatenumber}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-}
+};
 
 export default flightInfoTables;

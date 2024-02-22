@@ -2,7 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Grid, Pagination } from "@mui/material";
+import SearchBar from "../../components/SearchBar";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Pagination,
+} from "@mui/material";
 import "../../assets/AirRouteInfo.css";
 import AirRouteMenu from "./AirRouteMenu";
 import WeatherModal from "./WeatherModal";
@@ -14,7 +21,6 @@ const StyledBoardList = styled.div`
   //width: 80%;
   font-size: 13px;
 `;
-
 const MenuContainer = styled.div`
   position: fixed;
   //border: 1px solid black;
@@ -87,8 +93,6 @@ const AirRouteInfoList = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-
-  // 리스트
   const [flightData, setFlightData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchClick, setSearchClick] = useState(false);
@@ -98,7 +102,6 @@ const AirRouteInfoList = () => {
   const [open, setOpen] = useState(false);
   const [flight, setFlight] = useState({
     airport: "",
-    scheduleDateTime: "",
     modifyDate: "",
     wimage: "",
     senstemp: "",
@@ -118,24 +121,19 @@ const AirRouteInfoList = () => {
     setCurrentPage(newPage - 1);
   };
 
-  useEffect(() => {
-    console.log(currentPage);
-    if (!searchClick) {
-      fetchPages();
-    } else {
-      handleSearch();
-    }
-  }, [currentPage, pageSize, searchClick]);
-
-  const fetchPages = async () => {
+  const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`/airRoute/getBoardList`, {
-        params: {
-          page: currentPage,
-          size: pageSize,
-        },
-      });
+      console.log("검색어: ", searchText);
+      const response = await axios.get(
+        `/airRoute/getCheckinList?searchText=${searchText}&remark=3`,
+        {
+          params: {
+            page: currentPage,
+            size: pageSize,
+          },
+        }
+      );
 
       console.log("요청 성공: ", response.data);
       const { content, totalPages } = response.data;
@@ -159,48 +157,19 @@ const AirRouteInfoList = () => {
     }
   };
 
-  // 검색 버튼 클릭 시
-  const handleSearch = async () => {
-    setLoading(true);
-    setSearchClick(true); // 검색 버튼 클릭
-    try {
-      console.log("검색어: ", searchText);
-      const response = await axios.get(
-        `/airRoute/getKeywordList?searchText=${searchText}`,
-        {
-          params: {
-            page: currentPage,
-            size: pageSize,
-            // searchText: searchText,
-          },
-        }
-      );
-      console.log("요청검색어: ", searchText);
-      console.log("요청 성공: ", response.data);
-      const { content, totalPages } = response.data;
+  useEffect(() => {
+    fetchData();
+  }, [currentPage, pageSize, searchClick]);
 
-      //값 주입
-      setFlightData(content); //항공편 api 데이터
-      setTotalPages(totalPages); //size 10 개씩 나누었을 때의 총 페이지수
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleSearch = () => {
+    setSearchClick(true);
+    fetchData();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setCurrentPage(0);
-
-    // 검색어가 3글자 이상인 경우에만 검색 로직 수행
-    if (searchText.length >= 2) {
-      console.log("검색어:", searchText);
-      handleSearch(searchText);
-    } else {
-      alert("검색어는 3글자 이상이어야 합니다.");
-      console.log("검색어는 3글자 이상이어야 합니다.");
-    }
+    handleSearch();
   };
 
   return (
@@ -210,17 +179,16 @@ const AirRouteInfoList = () => {
         handleClose={handleClose}
         flight={flight}
       ></WeatherModal>
-
       <div className="linkMenu">
         <Link to="/">홈</Link> > <Link to="/airRouteInfo">항공편조회</Link> >
-        전체항공편
+        <Link to="/airRouteInfo4">결항항공조회</Link>
       </div>
 
       <MenuContainer>
         <AirRouteMenu />
       </MenuContainer>
       <Grid>
-        <h1>금일 운항 항공편</h1>
+        <h1>금일 결항 항공편</h1>
         <CenterContainer>
           <SearchInput
             type="text"

@@ -3,6 +3,7 @@
   /* border: 1px solid #ddd; */
   width: 80%;
   margin: 10px auto;
+  font-size: 13px;
 }
 
 .linkMenu a {
@@ -89,5 +90,21 @@ th {
 
   &:hover {
     background-color: #0d47a1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* Apply styles only when the screen width is 600 pixels or less */
+  table {
+    width: 95%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 10px;
+  }
+
+  .scheduleTime{
+    display: none;
   }
 }

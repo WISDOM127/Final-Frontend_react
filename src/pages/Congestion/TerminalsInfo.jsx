@@ -12,7 +12,7 @@ import CongestionTable from "../../components/CongestionTable";
 import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
 import Quick from "../../components/Quick";
 
-// Styled-components를 사용하여 CongestionTable을 오른쪽 상단에 고정
+//스타일
 const StyledCongestionTable = styled(CongestionTable)`
   position: fixed;
   top: 20px;
@@ -20,7 +20,6 @@ const StyledCongestionTable = styled(CongestionTable)`
   z-index: 1000; /* 필요에 따라 z-index 조정 */
 `;
 
-//스타일
 const TimeContainer = styled.div`
   font-size: 25px;
   font-weight: 600;
@@ -112,6 +111,11 @@ const TerminalsInfo = (어떤변수) => {
           <StyledCongestionTable />
         </Grid>
       </Grid> */}
+      <div className="linkMenu">
+        <Link to="/">홈</Link> >{" "}
+        <Link to="/terminals/t1info">출국장 혼잡도</Link>
+      </div>
+
       <Quick />
       <Grid
         container
@@ -124,6 +128,7 @@ const TerminalsInfo = (어떤변수) => {
           <Button variant="outlined" onClick={handleTerminal1click}>
             Terminal 1
           </Button>
+
           <Button variant="outlined" onClick={handleTerminal2click}>
             Terminal 2
           </Button>
@@ -155,10 +160,6 @@ const TerminalsInfo = (어떤변수) => {
             margin: "auto",
           }}
         >
-          {/* {showT1Mapper && <T1Mapper congestionData={congestionData} />} */}
-          {/* {showT2Mapper && <T2Mapper congestionData={congestionData} />} */}
-          {/* {selectedBtn === 1 && <T1Mapper congestionData={congestionData} />}
-        {selectedBtn === 2 && <T2Mapper congestionData={congestionData} />} */}
           {terminalId === "t1info" && (
             <T1Mapper congestionData={congestionData} />
           )}

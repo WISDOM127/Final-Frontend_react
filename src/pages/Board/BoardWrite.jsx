@@ -1,17 +1,27 @@
+import { Grid, Stack } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+const StyledBoardList = styled.div`
+  padding: 0px;
+  margin: auto;
+  text-align: center;
+  width: 80%;
+  font-size: 13px;
+`;
+
 const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  //display: flex;
+  //flex-direction: row;
   align-items: center;
-  margin-top: 20px;
+  margin: 5% auto;
 `;
 
 const Form = styled.form`
   width: 80%;
+  margin: auto;
   max-width: 600px;
   padding: 20px;
   background-color: #fff;
@@ -28,7 +38,7 @@ const FormGroup = styled.div`
     font-size: 16px;
     margin-bottom: 8px;
   }
-  
+
   textarea {
     /* Set a fixed height for the textarea */
     height: 150px;
@@ -47,29 +57,16 @@ const FormGroup = styled.div`
 `;
 
 const Button = styled.button`
-  margin-right: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #0d47a1;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0d47a1;
-  }
-
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin: 20px;
+  margin: 25px 10px;
+  margin-right: 10px;
   display: inline-block;
   padding: 10px;
   background-color: #42a5f5;
   color: #fff;
   text-decoration: none;
-  margin-right: 10px;
 
   &:hover {
     background-color: #0d47a1;
@@ -77,15 +74,17 @@ const Button = styled.button`
 `;
 
 const BackButton = styled.p`
-  padding: 10px 20px;
   font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+  display: inline-block;
+  padding: 10px 15px;
   background-color: #ccc;
   color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 20px;
+  text-decoration: none;
+  margin-right: 10px;
 
   &:hover {
     background-color: #bbb;
@@ -125,70 +124,98 @@ const BoardCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('admin:',board.admin);
-    console.log('subject:',board.boardTitle);
-    console.log('content:',board.boardContent);
+    console.log("subject:", board.boardTitle);
+    console.log("content:", board.boardContent);
     try {
       // Assuming you have a valid endpoint for posting data
-     const response= await axios.post("/board/BoardCreate", board);
+      const response = await axios.post("/board/BoardCreate", board);
       console.log("성공");
       alert("작성이 완료되었습니다");
       console.log(response.data);
-      navigate('/board/BoardList');
+      navigate("/boardList");
     } catch (error) {
-      console.log("실패했습니다", error);
+      console.log("글작성 실패", error);
     }
   };
 
-  const handleHome = () => {
-    navigate("/");
+  const handleBack = () => {
+    navigate("/boardList");
   };
 
   return (
-    <FormContainer>
-      <h2>글작성</h2>
-      <ResponsiveForm onSubmit={handleSubmit}>
-        <ResponsiveFormGroup>
-          <label htmlFor="admin">관리자 &nbsp;
-          {/* <input
-            type="text"
-            id="writer"
-            // value={board.admin}
-            value="고객센터"
-            onChange={(e) => setBoard({ ...board, admin: e.target.value })}
-            required
-          /> */}
-          <select name="check" id="writer" onChange={(e) => setBoard({ ...board, admin: e.target.value })}>
-          <option value="고객센터">고객센터</option>
-          <option value="핫트랙스">핫트랙스</option>
-          </select>
-          </label>
-        </ResponsiveFormGroup>
-        <ResponsiveFormGroup>
-          <label htmlFor="boardTitle">제목</label>
-          <input
-            type="text"
-            id="boardTitle"
-            value={board.boardTitle}
-            onChange={(e) => setBoard({ ...board, boardTitle: e.target.value })}
-            required
-          />
-        </ResponsiveFormGroup>
-        <ResponsiveFormGroup>
-          <label htmlFor="boardContent">내용</label>
-          <textarea
-            id="boardContent"
-            value={board.boardContent}
-            onChange={(e) => setBoard({ ...board, boardContent: e.target.value })}
-            required
-          />
-        </ResponsiveFormGroup>
-        <ButtonContainer>
-          <Button type="submit">완료</Button>
-        </ButtonContainer>
-      </ResponsiveForm>
-      <BackButton onClick={handleHome}>돌아가기</BackButton>
-    </FormContainer>
+    <StyledBoardList>
+      <FormContainer>
+        <h2>글작성</h2>
+        <ResponsiveForm onSubmit={handleSubmit}>
+          <ResponsiveFormGroup>
+            <label htmlFor="boardTitle">제목</label>
+            <input
+              type="text"
+              id="boardTitle"
+              value={board.boardTitle}
+              onChange={(e) =>
+                setBoard({ ...board, boardTitle: e.target.value })
+              }
+              required
+            />
+          </ResponsiveFormGroup>
+          <ResponsiveFormGroup>
+            <label htmlFor="boardContent">내용</label>
+            <textarea
+              id="boardContent"
+              value={board.boardContent}
+              onChange={(e) =>
+                setBoard({ ...board, boardContent: e.target.value })
+              }
+              required
+            />
+          </ResponsiveFormGroup>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="flex-start"
+          >
+            <Grid item>
+              <label htmlFor="boardWriter">작성자 </label>
+              <input
+                type="text"
+                id="boardWriter"
+                value={board.boardWriter}
+                onChange={(e) =>
+                  setBoard({ ...board, boardWriter: e.target.value })
+                }
+                required
+              />
+            </Grid>
+            <Grid item>
+              <label htmlFor="boardPw">비밀번호 </label>
+              <input
+                type="text"
+                id="boardWriter"
+                value={board.boardPw}
+                onChange={(e) =>
+                  setBoard({ ...board, boardPw: e.target.value })
+                }
+                required
+              />
+            </Grid>
+          </Grid>
+
+          <ButtonContainer>
+            <Button
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              취소
+            </Button>
+            <Button type="submit">완료</Button>
+          </ButtonContainer>
+        </ResponsiveForm>
+        <BackButton onClick={handleBack}>Back</BackButton>
+      </FormContainer>
+    </StyledBoardList>
   );
 };
 

@@ -1,3 +1,4 @@
+import { Pagination } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -9,7 +10,7 @@ const StyledBoardList = styled.div`
   //width: 80%;
   font-size: 13px;
 
-  .linkMenu{
+  .linkMenu {
     text-align: left;
     //border: 1px solid #ddd;
     width: 80%;
@@ -51,26 +52,37 @@ const StyledBoardList = styled.div`
     text-align: center;
   }
 
-  .date{
-    width: 11%;
+  .date {
+    width: 16%;
     //border: 1px solid #ddd;
   }
 
-  .view{
+  .view {
     width: 9%;
     //border: 1px solid #ddd;
   }
 
-  .writer{
+  .writer {
     width: 12%;
   }
 
-  
-  .title{
-    width: 60%;
+  .title {
+    width: 50%;
+
+    a {
+      text-decoration: none;
+      color: black;
+      display: block;
+      padding: 0;
+    }
+
+    a:hover {
+      background-color: lightYellow; /* 원하는 배경색으로 변경하세요 */
+      text-decoration: underline;
+    }
   }
 
-  .no{
+  .no {
     width: 8%;
   }
 
@@ -91,25 +103,69 @@ const StyledBoardList = styled.div`
     }
   }
 `;
+const CenterContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center; // 수평 가운데 정렬을 위해 추가
+`;
 
 const BoardList = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const [board, setBoards] = useState([]);
 
+  //최종 수정 시간 가공
+  // const [changeDate, setChangeDate] = useState("");
+  // const dateObj = new Date(changeDate);
+  // const 년월일 = dateObj.toLocaleDateString();
+  // const 시간 = dateObj.toLocaleTimeString();
+  // const 최종수정일시 = 년월일 + " " + 시간;
+  // console.log(`수정날짜 조회: ${최종수정일시}`);
+  // setChangeDate(최종수정일시);
+
+  //초기 랜더링시 전체 리스트 반환
+  // useEffect(() => {
+  //   setLoading(true); //로딩 상태 활성화
+  //   axios
+  //     .get("/airRoute/getBoardList")
+  //     .then((response) => setBoards(response.data))
+  //     .catch((error) => console.error(error));
+  // }, []);
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage - 1);
+  };
+
   useEffect(() => {
-    axios
-      .get("/board/BoardList")
-      .then((response) => setBoards(response.data))
-      .catch((error) => console.error(error));
-  }, []);
+    const fetchPages = async () => {
+      try {
+        const response = await axios.get(`/board/BoardList`, {
+          params: {
+            page: currentPage,
+            size: pageSize,
+          },
+        });
+
+        console.log("요청 성공: ", response.data);
+        const { content, totalPages } = response.data;
+
+        //값 주입
+        setBoards(content);
+        setTotalPages(totalPages);
+      } catch (error) {}
+    };
+    fetchPages();
+  }, [currentPage, pageSize]);
 
   return (
     <StyledBoardList>
       <div className="linkMenu">
-        <Link to="/">홈</Link> > <Link to="/">커뮤니티</Link> > 
+        <Link to="/">홈</Link> > <Link to="/">커뮤니티</Link> >
         <Link to="/"> 게시판</Link>
       </div>
 
-      <h1>게시판</h1>
+      <h1>커뮤니티 게시판</h1>
+      <p>실시간 공항 혼잡 관련 정보를 자유롭게 나누는 공간입니다</p>
       <table>
         <thead>
           <tr>
@@ -121,25 +177,34 @@ const BoardList = () => {
           </tr>
         </thead>
         <tbody>
-          {board.map((list, index) => (
+          {board.map((lists, index) => (
             <tr key={index}>
-              <td className="no">{list.boardSeq}</td>
+              <td className="no">{lists.boardSeq}</td>
               <td className="title">
-                <Link to={`/board/BoardDetail/${list.boardSeq}`}>
-                  {list.boardTitle}
+                <Link to={`/board/BoardDetail/${lists.boardSeq}`}>
+                  {lists.boardTitle}
                 </Link>
               </td>
-              <td className="writer">{list.boardWriter}</td>
-              <td className="view">{list.boardViews}</td>
-              <td className="date">{list.boardDate}</td>
+              <td className="writer">{lists.boardWriter}</td>
+              <td className="view">{lists.boardViews}</td>
+              <td className="date">{lists.boardDate}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <p>
+        Page: {currentPage + 1} / totalPages: {totalPages}
+      </p>
+      <CenterContainer>
+        <Pagination
+          count={totalPages}
+          page={currentPage + 1}
+          onChange={handlePageChange}
+        />
+      </CenterContainer>
       <Link className="button" to="/board/BoardWrite">
         글 작성
       </Link>
-      
     </StyledBoardList>
   );
 };

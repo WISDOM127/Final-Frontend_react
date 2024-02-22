@@ -9,6 +9,29 @@ import Divider from "@mui/material/Divider";
 function Header(props) {
   const { sections, title } = props;
 
+  const sharePage = () => {
+    const shareObject = {
+      title: "공유할 콘텐츠의 제목",
+      text: "WEBISFREE.com",
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      // Navigator를 지원하는 경우만 실행
+      navigator
+        .share(shareObject)
+        .then(() => {
+          // 정상 동작할 경우 실행
+          alert("감사합니다.");
+        })
+        .catch((error) => {
+          alert("에러가 발생했습니다.");
+        });
+    } else {
+      // navigator를 지원하지 않는 경우
+      alert("페이지 공유를 지원하지 않습니다.");
+    }
+  };
   return (
     <React.Fragment>
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -30,15 +53,17 @@ function Header(props) {
           noWrap
           sx={{ flex: 1 }}
         >
-          <Link underline="none" href="/">{title}</Link>
+          <Link underline="none" href="/">
+            {title}
+          </Link>
         </Typography>
         {/* <IconButton>
           <SearchIcon />
         </IconButton> */}
-        <Button variant="outlined" size="small">
-          <Link href="/signIn" underline="none">
-            로그인
-          </Link>
+        <Button variant="outlined" size="small" onClick={sharePage}>
+          {/* <Link href="/signIn" underline="none"> */}
+          공유하기
+          {/* </Link> */}
         </Button>
       </Toolbar>
 

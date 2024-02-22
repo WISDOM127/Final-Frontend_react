@@ -18,7 +18,7 @@ const TableContainerStyled = styled(TableContainer)`
 
 const TableCellStyled = styled(TableCell)`
   margin: 0;
-  padding: 5px;
+  padding: 8px 5px;
   text-align: center;
 
   @media (max-width: 768px) {

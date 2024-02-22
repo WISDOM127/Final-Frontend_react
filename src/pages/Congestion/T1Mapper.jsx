@@ -3,7 +3,7 @@ import ImageMapper from "react-img-mapper";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import styled from "styled-components";
-import "../../assets/T1Mapper.css";
+import "../../assets/T1T2Mapper.css";
 import { Typography } from "@mui/material";
 
 //테스트

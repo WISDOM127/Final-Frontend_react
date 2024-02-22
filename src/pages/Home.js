@@ -98,7 +98,6 @@ export default function Home() {
       </Grid>
 
       {/* 편의시설 탭 */}
-      <Divider sx={{ mt: 6 }} />
       {/* <Grid container spacing={2} sx={{ mt: 5 }}>
         <Main
           title="편의시설"

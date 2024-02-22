@@ -14,9 +14,13 @@ import SignUp from "./pages/SignUp";
 import NotFound from "./components/NotFound";
 import TerminalsInfo from "./pages/Congestion/TerminalsInfo";
 import AirRouteInfo from "./pages/AirRoutes/AirRouteInfo";
+import AirRouteInfo2 from "./pages/AirRoutes/AirRouteInfo2";
+import AirRouteInfo3 from "./pages/AirRoutes/AirRouteInfo3";
+import AirRouteInfo4 from "./pages/AirRoutes/AirRouteInfo4";
+
 import BoardList from "./pages/Board/BoardList";
 import BoardWrite from "./pages/Board/BoardWrite";
-
+import BoardDetail from "./pages/Board/BoardDetail";
 
 function App() {
   const sections = [
@@ -74,11 +78,14 @@ function App() {
             <Route path="/terminals/:terminalId" element={<TerminalsInfo />} />
             {/* 항공편 현황 조회 */}
             <Route path="/airRouteInfo" element={<AirRouteInfo />} />
+            <Route path="/airRouteInfo2" element={<AirRouteInfo2 />} />
+            <Route path="/airRouteInfo3" element={<AirRouteInfo3 />} />
+            <Route path="/airRouteInfo4" element={<AirRouteInfo4 />} />
+
             {/* 커뮤니티 */}
             <Route path="/boardList" element={<BoardList />} />
             <Route path="/board/BoardWrite" element={<BoardWrite />} />
-
-            
+            <Route path='/board/BoardDetail/:boardSeq' element={<BoardDetail/>}/> 
 
             <Route path={"*"} element={<NotFound />} />
           </Routes>

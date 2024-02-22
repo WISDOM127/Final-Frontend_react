@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import axios from "axios";
 import React, { useState } from "react";
 //import styled from "styled-components";
@@ -73,34 +73,57 @@ const AnswerContainer = styled.div`
   align-items: center;
   justify-content: center; // 수평 가운데 정렬을 위해 추가
   margin: 50px auto;
-  width: 1000px;
+  width: 80%;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin: auto;
+    margin-top: 30px;
+    padding: 0px;
+  }
 `;
 
 const SearchBar = () => {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [flightData, setFlightData] = useState(null);
+  const [flightData, setFlightData] = useState([]);
   const [showTable, setShowTable] = useState(false);
 
-  const handleSearch = async () => {
+  const handleSearch = async (searchText) => {
     setLoading(true); //로딩 상태 활성화
+
     try {
       console.log("부트 전송전" + searchText);
       const response = await axios.post("/airRoute/searchFlight", searchText);
-      console.log("요청성공" + searchText);
-
-      //Boot 에서 반환한 데이터를 congestionData 에 저장
+      console.log("요청" + searchText);
+      console.log("--response.data--");
+      console.log(response.data);
+      //Boot 에서 반환한 데이터를 FlightData 에 저장
       setFlightData(response.data);
-      setShowTable(response.data.flightId !== null); // 결과가 있는 경우에만 테이블 보이도록 설정
+      // 결과가 있는 경우에만 테이블 보이도록 설정
+      setShowTable(response.data.length !== 0);
       console.log(response);
       console.log(response.data);
 
-      console.log(response.data.remark);
-      console.log("서버에서 받은 데이터 :" + flightData.flightId);
+      console.log("flightData.flightId :" + flightData.flightId);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+
     setLoading(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // 검색어가 3글자 이상인 경우에만 검색 로직 수행
+    if (searchText.length >= 3) {
+      console.log("검색어:", searchText);
+      handleSearch(searchText);
+    } else {
+      alert("검색어는 3글자 이상이어야 합니다.");
+      console.log("검색어는 3글자 이상이어야 합니다.");
+    }
   };
 
   function createData(
@@ -109,7 +132,9 @@ const SearchBar = () => {
     airport,
     scheduleDateTime,
     estimatedDateTime,
-    remark
+    remark,
+    chkinrange,
+    gatenumber
   ) {
     return {
       flightId,
@@ -118,22 +143,27 @@ const SearchBar = () => {
       scheduleDateTime,
       estimatedDateTime,
       remark,
+      chkinrange,
+      gatenumber,
     };
   }
 
   const rows = showTable
-    ? [
+    ? flightData.map((data) =>
         createData(
-          flightData.flightId,
-          flightData.airline,
-          flightData.airport,
-          flightData.scheduleDateTime,
-          flightData.estimatedDateTime,
-          flightData.remark
-        ),
-      ]
+          data.flightId,
+          data.airline,
+          data.airport,
+          data.scheduleDateTime,
+          data.estimatedDateTime,
+          data.remark,
+          data.chkinrange,
+          data.gatenumber
+        )
+      )
     : [];
 
+  console.log(rows);
   return (
     <Grid item xs={12}>
       <TextContainer>실시간 항공편을 검색해보세요!</TextContainer>
@@ -144,15 +174,18 @@ const SearchBar = () => {
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <SearchButton onClick={handleSearch}>검색</SearchButton>
+        <SearchButton onClick={handleSubmit}>검색</SearchButton>
       </SearchContainer>
       <AnswerContainer>
         {/* 대기중일때 */}
-        {loading && <SearchContainer>대기중...</SearchContainer>}
+        {loading && (
+          <SearchContainer>
+            <CircularProgress />
+          </SearchContainer>
+        )}
         {/* 로딩이 끝난 후 검색결과 */}
         {!loading && (
           <>
-            {!showTable && !flightData && <p></p>}
             {!showTable && flightData && <p>검색 결과가 없습니다.</p>}
             {showTable && flightData && <Table rows={rows} />}
           </>
