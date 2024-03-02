@@ -3,9 +3,9 @@
 <strong><li>버전 node.js v20.10.0 / npm v10.2.5</li> </strong>
 <strong><li>MUI 템플릿 https://mui.com/</li></strong>
 <strong><li>공공데이터 Open API</li></strong>
-- 기상청 단기예보 데이터 API <br/>
-- 인천국제공항공사 입국장현황 데이터 API(미완)
-</ol>
+- 기상청 [단기예보] 오픈데이터 API  <br/>
+- 인천국제공항공사 [출국 승객 예고 정보] 오픈데이터 API  <br/>
+- 인천국제공항공사 [도착지 기상 정보] 오픈데이터 API  <br/>
 
 # 반응형 웹 기준(width)
 <ol>
