@@ -25,21 +25,21 @@ const MainWeatherPost = () => {
   const [nowTem, setNowTem] = useState("");
   const [precip, setPrecip] = useState("");
   const [loading, setLoading] = useState(false);
-// 현재날짜
+  // 현재날짜
   const todayInfo = getToday;
   const { year, month, day } = todayInfo;
   const todayValue = year + month + day;
 
-  const API_KEY = "SJM6rMj+VwpNDjc0d4VEiXQaczyN7xQkGOmGcSR1QtCoTqHbMHI4R34JvgORpwM/fSdkLeXwDMO7Bf7vLIAlSQ==";
-  const BASE_URL = "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst";
+  const API_KEY =
+    "SJM6rMj+VwpNDjc0d4VEiXQaczyN7xQkGOmGcSR1QtCoTqHbMHI4R34JvgORpwM/fSdkLeXwDMO7Bf7vLIAlSQ==";
+  const BASE_URL =
+    "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst";
 
   const encodeServiceKey = (serviceKey) => encodeURIComponent(serviceKey);
 
   // 출력
   console.log("JSON:", todayInfo);
   console.log("년월일:", todayValue);
-
-  
 
   useEffect(() => {
     //컴포넌트가 렌더링 될 때마다 API 요청
@@ -57,7 +57,7 @@ const MainWeatherPost = () => {
               pageNo: 1,
               dataType: "json",
               base_date: todayValue,
-              base_time: "0800",
+              base_time: "0500",
               nx: 51,
               ny: 125, //인천의 경도위도 전송
             },
@@ -126,11 +126,8 @@ const MainWeatherPost = () => {
     const icPTYValue = parseInt(precip, 10);
     if (icPTYValue === 0) {
       setPreStatus("강수없음");
-      if (skyStatus === "맑음") {
-        setWeatherImage("img/sunny.jpg");
-      } else {
-        setWeatherImage("img/cloudy.jpg");
-      }
+      setWeatherImage("img/sunny.jpg");
+      // if (skyStatus === "맑음")  setWeatherImage("img/sunny.jpg"); else setWeatherImage("img/cloudy.jpg");
     } else if (icPTYValue === 1) {
       console.log("비");
       setPreStatus("비");

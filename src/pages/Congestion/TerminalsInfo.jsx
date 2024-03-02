@@ -51,6 +51,7 @@ const TerminalsInfo = (어떤변수) => {
   console.log("시간:", clock);
 
   const atime = hours;
+  //const atime = "07";
   const today = year + "년 " + month + "월 " + day + "일 " + clock;
 
   useEffect(() => {
