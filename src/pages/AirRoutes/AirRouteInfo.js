@@ -212,7 +212,7 @@ const AirRouteInfoList = () => {
       ></WeatherModal>
 
       <div className="linkMenu">
-        <Link to="/">홈</Link> > <Link to="/airRouteInfo">항공편조회</Link> >
+        <Link to="/">홈</Link> <Link to="/airRouteInfo">항공편조회</Link>
         전체항공편
       </div>
 
